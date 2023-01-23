@@ -1,4 +1,4 @@
-
+import Notiflix from 'notiflix';
 
 function fetchCountries(name) {
 
@@ -20,7 +20,7 @@ function fetchCountries(name) {
         console.log(mappedData)
 
         if (mappedData.length > 10) {
-          //  window.alert('To many matches')
+            Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
           list.innerHTML = '' 
           info.innerHTML = ''
         }
@@ -54,6 +54,7 @@ function fetchCountries(name) {
         console.log('errors')
         list.innerHTML = ''
         info.innerHTML = ''
+        Notiflix.Notify.failure("Oops, there is no country with that name");
     })
 }
 
