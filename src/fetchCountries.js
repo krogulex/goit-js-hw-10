@@ -1,6 +1,10 @@
 
 
 function fetchCountries(name) {
+
+    const list = document.querySelector('.country-list')
+    const info = document.querySelector('.country-info')
+
     fetch(`https://restcountries.com/v3.1/name/${name}`)
     .then (response => response.json())
     .then (data => {
@@ -14,9 +18,6 @@ function fetchCountries(name) {
             }
         });
         console.log(mappedData)
-
-        const list = document.querySelector('.country-list')
-        const info = document.querySelector('.country-info')
 
         if (mappedData.length > 10) {
           //  window.alert('To many matches')
@@ -51,6 +52,8 @@ function fetchCountries(name) {
     })
     .catch (error => {
         console.log('errors')
+        list.innerHTML = ''
+        info.innerHTML = ''
     })
 }
 

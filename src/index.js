@@ -7,10 +7,10 @@ const input = document.querySelector('input')
 //const list = document.querySelector('.country-list')
 
 
+
 input.addEventListener('input', (event) => {
 
-    const name = event.currentTarget.value
-    console.log(name)
+    const name = event.currentTarget.value.trim()
     fetchCountries(name)
 
 })
