@@ -1,6 +1,6 @@
 import './css/styles.css';
 import { fetchCountries } from './fetchCountries';
-import _ from 'lodash.debounce';
+import _ from 'lodash';
 
 
 const DEBOUNCE_DELAY = 300;
@@ -13,6 +13,6 @@ function countriesFilter(event) {
     fetchCountries(name)
 }
 //Nie rozumiem czemu poniższy debounce nie działa?
-// input.addEventListener('input', _.debounce(countriesFilter, DEBOUNCE_DELAY))
+ input.addEventListener('input', _.debounce(countriesFilter, DEBOUNCE_DELAY))
 
-input.addEventListener('input', countriesFilter)
+//input.addEventListener('input', countriesFilter)
