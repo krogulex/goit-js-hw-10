@@ -4,18 +4,11 @@ function fetchCountries(name) {
   const list = document.querySelector('.country-list');
   const info = document.querySelector('.country-info');
 
-  fetch(`https://restcountries.com/v3.1/name/${name}`)
+  fetch(`https://restcountries.com/v3.1/name/${name}?fields=languages,name,official,population,flags`)
     .then(response => response.json())
     .then(data => {
-      const mappedData = data.map(item => {
-        return {
-          name: item.name.official,
-          capital: item.capital,
-          population: item.population,
-          flag: item.flags.svg,
-          languages: item.languages,
-        };
-      });
+      const mappedData = data
+        console.log(mappedData)
 
       if (mappedData.length > 10) {
         Notiflix.Notify.info(
@@ -28,24 +21,25 @@ function fetchCountries(name) {
         list.innerHTML = '';
         info.innerHTML = '';
         for (let i = 0; i < mappedData.length; i++) {
+        
           const element = mappedData[i];
           const country = document.createElement('li');
           country.classList.add('country-item');
-          country.innerHTML = `<img class="country-flag"  src=${element.flag}> ${element.name}`;
+          country.innerHTML = `<img class="country-flag"  src=${element.flags.svg}> ${element.name.official}`;
           list.append(country);
         }
       }
       if (mappedData.length === 1) {
         list.innerHTML = '';
         const countryInfo = mappedData[0];
+        const languages = Object.values(countryInfo.languages)
+
         info.innerHTML = `<ul class="country-info-list">
-            <li><img class="country-flag-info"  src=${countryInfo.flag}> <span class="country-info-name">${countryInfo.name}</span></li>
+            <li><img class="country-flag-info"  src=${countryInfo.flags.svg}> <span class="country-info-name">${countryInfo.name.official}</span></li>
             <li><strong>Capital:</strong> ${countryInfo.capital}</li>
             <li><strong>Population:</strong> ${countryInfo.population}</li>
-            <li><strong>Languages:</strong> ${countryInfo.languages}</li>
+            <li><strong>Languages:</strong> ${languages.join(', ')}</li>
           </ul>`;
-        //spróbować value
-          //Nie pokazuje mi popranwnie języka w danym kraju, gdyż ten język jest ukryty poziom niżej w obiekcie i polski ma np tablice, gdzie kluczem jest pol. A np Szwedzki ma obiekt gdzie kluczem jest swe. Wiec nie wiem co zrobić, żeby to zaglądało wgłąb tego obiektu.
       }
     })
     .catch(error => {
